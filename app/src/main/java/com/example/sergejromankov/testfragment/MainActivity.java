@@ -20,11 +20,17 @@ public class MainActivity extends AppCompatActivity implements MainRouter {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         //
-        tapBarFragment = TapBarFragment.instance();
-        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.add(R.id.fragmentContainer, tapBarFragment);
-        fragmentTransaction.commitNow();
+        if(savedInstanceState == null){
+            tapBarFragment = TapBarFragment.instance();
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.add(R.id.fragmentContainer, tapBarFragment);
+            fragmentTransaction.commitNow();
+        }else{
+            tapBarFragment = (TapBarFragment) getLastCustomNonConfigurationInstance();
+        }
     }
+
+
 
     @Override
     protected void onPostResume() {
@@ -47,14 +53,18 @@ public class MainActivity extends AppCompatActivity implements MainRouter {
     }
 
     @Override
-    public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
-        super.onSaveInstanceState(outState, outPersistentState);
-
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
     }
 
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
+    }
+
+
+    public TapBarFragment onRetainCustomNonConfigurationInstance (){
+        return tapBarFragment;
     }
 
 
@@ -75,7 +85,10 @@ public class MainActivity extends AppCompatActivity implements MainRouter {
 
     @Override
     public void addFragmentToTapBar(android.support.v4.app.Fragment fragment) {
-        tapBarFragment.addFragment(fragment);
+        if(tapBarFragment != null)
+        {
+            tapBarFragment.addFragment(fragment);
+        }
     }
 
     @Override

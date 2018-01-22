@@ -13,6 +13,7 @@ import android.widget.Button;
 import com.example.sergejromankov.testfragment.Contacts.View.ContactsFragment;
 import com.example.sergejromankov.testfragment.Contacts.Models.ContactsInitModel;
 
+import java.io.Serializable;
 import java.util.Random;
 
 /**
@@ -44,26 +45,34 @@ public class TapBarFragment extends Fragment implements View.OnClickListener {
         View view = inflater.inflate(R.layout.fragment_tap_bar, container, false);
         btn1 = view.findViewById(R.id.btn1);
         btn2 = view.findViewById(R.id.button2);
+        setRetainInstance(true);
 
-        ContactsInitModel contactsModel1 = new ContactsInitModel();
-        ContactsInitModel contactsModel2 = new ContactsInitModel();
 
-        contactsModel1.color = R.color.colorPrimary;
-        contactsModel2.color = R.color.colorAccent;
+        if(savedInstanceState == null)
+        {
 
-        // Create Fragment
-        fragmentOne = ContactsFragment.instance(contactsModel1);
-        fragmentTwo = ContactsFragment.instance(contactsModel2);
+            ContactsInitModel contactsModel1 = new ContactsInitModel();
+            ContactsInitModel contactsModel2 = new ContactsInitModel();
 
-        fragmentOneItem = TapBarItemFragment.instance(R.color.colorPrimaryDark);
-        fragmentTwoItem = TapBarItemFragment.instance(R.color.colorAccent);
+            contactsModel1.color = R.color.colorPrimary;
+            contactsModel2.color = R.color.colorAccent;
+            // Create Fragment
+            fragmentOne = ContactsFragment.instance(contactsModel1);
+            fragmentTwo = ContactsFragment.instance(contactsModel2);
 
-        _addFragment(fragmentOneItem, "1");
-        _addFragment(fragmentTwoItem, "2");
+            fragmentOneItem = TapBarItemFragment.instance(R.color.colorPrimaryDark);
+            fragmentTwoItem = TapBarItemFragment.instance(R.color.colorAccent);
 
-        currentFragment = fragmentTwoItem;
+            _addFragment(fragmentOneItem, "1");
+            _addFragment(fragmentTwoItem, "2");
 
-        addFragment(fragmentOne);
+            currentFragment = fragmentTwoItem;
+
+            _addFragment(fragmentOne, fragmentOneItem);
+            _addFragment(fragmentTwo, fragmentTwoItem);
+
+        }
+
 
         btn1.setOnClickListener(this);
         btn2.setOnClickListener(this);
@@ -77,11 +86,18 @@ public class TapBarFragment extends Fragment implements View.OnClickListener {
 
     public int getBackStackEntryCount(){
         int count = currentFragment.getChildFragmentManager().getBackStackEntryCount();
+        if(count == 1){
+            return 0;
+        }
         return count;
     }
 
 
     public void addFragment(Fragment fragment){
+        _addFragment(fragment, currentFragment);
+    }
+
+    private void _addFragment(Fragment fragment, Fragment currentFragment){
         FragmentTransaction transaction = currentFragment.getChildFragmentManager().beginTransaction();
         transaction.add(R.id.fragmentContainer,fragment, fragment.getClass().getName());
         transaction.addToBackStack(fragment.getClass().getName());
