@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 
 import com.example.sergejromankov.testfragment.Contacts.Data.ContactsPresenter;
 import com.example.sergejromankov.testfragment.Contacts.Models.ContactsInitModel;
+import com.example.sergejromankov.testfragment.Main.BaseMainFragment;
 import com.example.sergejromankov.testfragment.Main.General.BaseFragment;
 import com.example.sergejromankov.testfragment.R;
 
@@ -20,7 +21,7 @@ import com.example.sergejromankov.testfragment.R;
  * Created by sergejromankov on 16.12.2017.
  */
 
-public class ContactsFragment extends BaseFragment implements ContactsView {
+public class ContactsFragment extends BaseMainFragment implements ContactsView {
 
     private ContactsPresenter presenter;
     private RecyclerView recyclerView;

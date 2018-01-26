@@ -40,28 +40,16 @@ public abstract class BaseFragment extends Fragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         setRetainInstance(true);
-        // add View
-        //noinspection unchecked
-        getPresenter().setView(this);
-
-        // add Router
-        MainActivity mainActivity = (MainActivity) getActivity();
-        //noinspection unchecked
-        getPresenter().setRouter(mainActivity);
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        getPresenter().isStart = true;
-        getPresenter().onStart();
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        getPresenter().isStart = false;
-        getPresenter().onStop();
     }
 
 
@@ -70,13 +58,10 @@ public abstract class BaseFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         //noinspection unchecked
-        getPresenter().setRouter(null);
     }
 
     public String getFragmentName() {
         return Long.toString(fragmentId);
     }
 
-    @NonNull
-    protected abstract BasePresenter getPresenter();
 }

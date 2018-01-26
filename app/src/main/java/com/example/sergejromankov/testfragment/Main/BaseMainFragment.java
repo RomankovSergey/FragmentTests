@@ -3,11 +3,13 @@ package com.example.sergejromankov.testfragment.Main;
 import android.app.ProgressDialog;
 import android.graphics.Rect;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
 import android.view.View;
 import android.widget.Toast;
 
 import com.example.sergejromankov.testfragment.Main.General.BaseFragment;
+import com.example.sergejromankov.testfragment.Main.General.BasePresenter;
 import com.example.sergejromankov.testfragment.MainActivity;
 
 
@@ -17,8 +19,6 @@ import com.example.sergejromankov.testfragment.MainActivity;
 
 
 public abstract class BaseMainFragment extends BaseFragment implements BaseMainView {
-
-    public abstract String getTitle();
 
 
     @Override
@@ -33,6 +33,8 @@ public abstract class BaseMainFragment extends BaseFragment implements BaseMainV
         MainActivity mainActivity = (MainActivity) getActivity();
         //noinspection unchecked
         getPresenter().setRouter(mainActivity);
+        //noinspection unchecked
+        getPresenter().setView(this);
     }
 
     @Override
@@ -66,4 +68,8 @@ public abstract class BaseMainFragment extends BaseFragment implements BaseMainV
 
     public void applyStyle() {
     }
+
+
+    @NonNull
+    protected abstract BasePresenter getPresenter();
 }

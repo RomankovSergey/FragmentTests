@@ -79,6 +79,14 @@ public class ContactsPresenter extends BaseMainPresenter implements ContactsPres
     @Override
     public void onClick(int index) {
 
+//        try {
+//            Thread.sleep(10000);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+//
+//        for(int i = 1; i < 10000: i++)
+
         Fragment fragment = (Fragment)view;
         MainRouter mainRouter = (MainRouter) fragment.getActivity();
         ContactsInitModel model = new ContactsInitModel();

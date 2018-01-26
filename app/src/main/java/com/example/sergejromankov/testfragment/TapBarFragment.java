@@ -45,6 +45,8 @@ public class TapBarFragment extends Fragment implements View.OnClickListener {
         View view = inflater.inflate(R.layout.fragment_tap_bar, container, false);
         btn1 = view.findViewById(R.id.btn1);
         btn2 = view.findViewById(R.id.button2);
+        setRetainInstance(true);
+
 
 
         if(savedInstanceState == null)
@@ -70,11 +72,11 @@ public class TapBarFragment extends Fragment implements View.OnClickListener {
             _addFragment(fragmentOne, fragmentOneItem);
             _addFragment(fragmentTwo, fragmentTwoItem);
 
-
-            btn1.setOnClickListener(this);
-            btn2.setOnClickListener(this);
-
         }
+
+
+        btn1.setOnClickListener(this);
+        btn2.setOnClickListener(this);
 
 
         return view;

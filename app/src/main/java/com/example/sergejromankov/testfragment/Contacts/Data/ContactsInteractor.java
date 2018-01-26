@@ -21,6 +21,7 @@ public class ContactsInteractor {
             contactsModel.index = i;
             list.add(contactsModel);
         }
+
         presenterInterface.updateContacts(list);
     }
 
