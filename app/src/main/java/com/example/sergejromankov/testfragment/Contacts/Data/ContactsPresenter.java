@@ -1,7 +1,9 @@
 package com.example.sergejromankov.testfragment.Contacts.Data;
 
 
+import android.os.CountDownTimer;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 
 import com.example.sergejromankov.testfragment.Contacts.ContactsAdapterOutputInterface;
 import com.example.sergejromankov.testfragment.Contacts.Models.ContactsInitModel;
@@ -26,6 +28,7 @@ public class ContactsPresenter extends BaseMainPresenter implements ContactsPres
     private ContactsInitModel contactsModel;
     private ContactsView view;
     private ContactsInteractor contactsInteractor;
+    boolean isContactFragment = false;
 
     private Boolean isStartFragment;
 
@@ -48,6 +51,15 @@ public class ContactsPresenter extends BaseMainPresenter implements ContactsPres
     @Override
     public void onStart() {
         isStartFragment = true;
+
+        if(isContactFragment) {
+            Fragment fragment = (Fragment) view;
+            MainRouter mainRouter = (MainRouter) fragment.getActivity();
+            ContactsInitModel model = new ContactsInitModel();
+            model.color = R.color.colorPrimaryDark;
+            mainRouter.addFragmentToTapBar(NameFragment.instance("test"));
+            isContactFragment = false;
+        }
     }
 
     @Override
@@ -79,19 +91,27 @@ public class ContactsPresenter extends BaseMainPresenter implements ContactsPres
     @Override
     public void onClick(int index) {
 
-//        try {
-//            Thread.sleep(10000);
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
-//
-//        for(int i = 1; i < 10000: i++)
+        new CountDownTimer(3000, 1000) {
 
-        Fragment fragment = (Fragment)view;
-        MainRouter mainRouter = (MainRouter) fragment.getActivity();
-        ContactsInitModel model = new ContactsInitModel();
-        model.color = R.color.colorPrimaryDark;
-        mainRouter.addFragmentToTapBar(NameFragment.instance("test"));
+            public void onTick(long millisUntilFinished) {
+                //here you can have your logic to set text to edittext
+            }
+
+            public void onFinish() {
+
+                if(!isStart){
+                    isContactFragment = true;
+                    return;
+                }
+                Fragment fragment = (Fragment)view;
+                MainRouter mainRouter = (MainRouter) fragment.getActivity();
+                ContactsInitModel model = new ContactsInitModel();
+                model.color = R.color.colorPrimaryDark;
+                mainRouter.addFragmentToTapBar(NameFragment.instance("test"));
+            }
+
+        }.start();
+
 
     }
 }

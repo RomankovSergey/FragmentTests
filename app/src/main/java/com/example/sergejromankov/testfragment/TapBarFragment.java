@@ -14,6 +14,7 @@ import com.example.sergejromankov.testfragment.Contacts.View.ContactsFragment;
 import com.example.sergejromankov.testfragment.Contacts.Models.ContactsInitModel;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Random;
 
 /**
@@ -33,8 +34,10 @@ public class TapBarFragment extends Fragment implements View.OnClickListener {
 
     TapBarItemFragment currentFragment;
 
-    public static TapBarFragment instance(){
+    public static TapBarFragment instance(ArrayList<TapFragmentItemModel> list){
         TapBarFragment f = new TapBarFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString("", String.valueOf(list));
         return f;
     }
 
@@ -46,6 +49,11 @@ public class TapBarFragment extends Fragment implements View.OnClickListener {
         btn1 = view.findViewById(R.id.btn1);
         btn2 = view.findViewById(R.id.button2);
         setRetainInstance(true);
+
+        Bundle bundle = getArguments();
+        if(bundle != null){
+
+        }
 
 
 

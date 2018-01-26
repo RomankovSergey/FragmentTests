@@ -13,6 +13,7 @@ import com.example.sergejromankov.testfragment.Main.MainRouter;
 public class MainActivity extends AppCompatActivity implements MainRouter {
     TextView textView;
     TapBarFragment tapBarFragment;
+    boolean isStartActivity;
 
 
     @Override
@@ -39,12 +40,15 @@ public class MainActivity extends AppCompatActivity implements MainRouter {
 
     @Override
     protected void onStart() {
+        isStartActivity = true;
         super.onStart();
     }
 
     @Override
     protected void onStop() {
+        isStartActivity = false;
         super.onStop();
+
     }
 
     @Override
@@ -85,6 +89,11 @@ public class MainActivity extends AppCompatActivity implements MainRouter {
 
     @Override
     public void addFragmentToTapBar(android.support.v4.app.Fragment fragment) {
+
+        if(!isStartActivity){
+            return;
+        }
+
         if(tapBarFragment != null)
         {
             tapBarFragment.addFragment(fragment);

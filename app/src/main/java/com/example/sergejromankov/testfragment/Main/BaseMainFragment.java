@@ -49,6 +49,20 @@ public abstract class BaseMainFragment extends BaseFragment implements BaseMainV
         //noinspection ConstantConditions
     }
 
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        getPresenter().onStart();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        getPresenter().onStop();
+
+    }
+
     ProgressDialog progressDialog;
 
 
