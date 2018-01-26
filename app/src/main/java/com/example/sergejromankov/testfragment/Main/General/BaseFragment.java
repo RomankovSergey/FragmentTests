@@ -78,5 +78,5 @@ public abstract class BaseFragment extends Fragment {
     }
 
     @NonNull
-    protected abstract ContactsPresenter getPresenter();
+    protected abstract BasePresenter getPresenter();
 }

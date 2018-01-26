@@ -78,10 +78,12 @@ public class ContactsPresenter extends BaseMainPresenter implements ContactsPres
     // ContactsAdapterOutputInterface
     @Override
     public void onClick(int index) {
+
         Fragment fragment = (Fragment)view;
         MainRouter mainRouter = (MainRouter) fragment.getActivity();
         ContactsInitModel model = new ContactsInitModel();
         model.color = R.color.colorPrimaryDark;
         mainRouter.addFragmentToTapBar(NameFragment.instance("test"));
+
     }
 }

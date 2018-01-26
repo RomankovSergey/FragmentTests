@@ -23,6 +23,7 @@ public class TapBarItemFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.tap_bar_fragment_item, container, false);
         Bundle bundle = getArguments();
+        setRetainInstance(true);
         int color = bundle.getInt(COLOR);
         view.setBackgroundResource(color);
         return view;
